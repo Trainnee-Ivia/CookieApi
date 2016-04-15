@@ -1,2 +1,2 @@
 # CookieApi
-Web Api REST do Cookie, projeto de aprendizado dos conceitos aprendidos até esse momento.
+Web API RESTful para praticar o conhecimento adquirido no Trainnee.
