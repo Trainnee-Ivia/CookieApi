@@ -52,7 +52,7 @@ namespace ApiRest.Controllers
         {
             var itens = new List<object>();
 
-            foreach(var item in _uow.PedidoRepository.ObterPorId(id).ItensDoPedido)
+            foreach(var item in _uow.PedidoRepository.ObterPorIdComItens(id).ItensDoPedido)
                 itens.Add(Mapper.Map<ItemDoPedido, ItemDoPedidoViewModelEnvio>(item));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, itens);
@@ -64,7 +64,7 @@ namespace ApiRest.Controllers
         [Route("{idPedido}/itens/id")]
         public HttpResponseMessage GetByIdItemDoPedido([FromUri] int idPedido, [FromUri]int id)
         {
-            var item = _uow.PedidoRepository.ObterPorId(idPedido).ItensDoPedido.Find(e => e.Id == id);
+            var item = _uow.PedidoRepository.ObterPorIdComItens(idPedido).ItensDoPedido.Find(e => e.Id == id);
             var itemView = Mapper.Map<ItemDoPedido, ItemDoPedidoViewModelEnvio>(item);
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, itemView);

@@ -17,7 +17,9 @@ namespace Domain.Objetos
         public virtual PontoDeVenda PontoDeVenda { get; set; }
         public virtual List<ItemDoPedido> ItensDoPedido { get; set; }
 
-        private Pedido() { }
+        private Pedido() {
+            ItensDoPedido = new List<ItemDoPedido>();
+        }
 
         public Pedido(DateTime dataDoPedido, PontoDeVenda pontoDeVenda)
         {

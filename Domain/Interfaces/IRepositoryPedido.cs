@@ -9,5 +9,6 @@ namespace Domain.Interfaces
 {
     public interface IRepositoryPedido: IRepository<Pedido>
     {
+        Pedido ObterPorIdComItens(int id);
     }
 }

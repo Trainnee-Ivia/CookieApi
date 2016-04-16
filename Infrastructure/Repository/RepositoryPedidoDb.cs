@@ -20,5 +20,10 @@ namespace Infrastructure.Repository
         {
             get { return Context as CookieDbContext; }
         }
+
+        public Pedido ObterPorIdComItens(int id)
+        {
+            return CookieDbContext.Pedidos.Include("ItensDoPedido").Where(p => p.Id == id).FirstOrDefault();
+        }
     }
 }
