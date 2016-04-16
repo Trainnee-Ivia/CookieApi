@@ -28,7 +28,7 @@ namespace ApiRest.Controllers
         {
             var lotes = new List<object>();
             foreach (var lote in _repositoryLotes.ObterTodos())
-                lotes.Add(Mapper.Map<Lote, LoteViewModel>(lote));
+                lotes.Add(Mapper.Map<Lote, LoteViewModelEnvio>(lote));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, lotes);
 
@@ -39,7 +39,7 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetByIdLote([FromUri]int id)
         {
-            var lote = Mapper.Map<Lote, LoteViewModel>(_repositoryLotes.ObterPorId(id));
+            var lote = Mapper.Map<Lote, LoteViewModelEnvio>(_repositoryLotes.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, lote);
 
             return response;
@@ -47,14 +47,14 @@ namespace ApiRest.Controllers
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage PostProduto([FromBody] LoteViewModel loteViewModel)
+        public HttpResponseMessage PostLote([FromBody] LoteViewModelRecebimento loteViewModel)
         {
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Select(m => string.Join(",", m.Value.Errors.Select(e => e.ErrorMessage)));
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errors });
             }
-            var lote = Mapper.Map<LoteViewModel, Lote>(loteViewModel);
+            var lote = Mapper.Map<LoteViewModelRecebimento, Lote>(loteViewModel);
 
             _repositoryLotes.Inserir(lote);
             ((RepositoryLoteDb)_repositoryLotes).CookieDbContext.SaveChanges();

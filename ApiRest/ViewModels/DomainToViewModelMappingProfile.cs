@@ -10,8 +10,10 @@ namespace ApiRest.ViewModels
         {
             CreateMap<Produto, ProdutoViewModel>();
             CreateMap<PontoDeVenda, PontoDeVendaViewModel>();
-            CreateMap<Lote, LoteViewModel>();
+            CreateMap<Lote, LoteViewModelEnvio>();
             CreateMap<Endereco, EnderecoViewModel>();
+            CreateMap<Pedido, PedidoViewModelEnvio>();
+            CreateMap<ItemDoPedido, ItemDoPedidoViewModelEnvio>();
         }
     }
 }

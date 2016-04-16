@@ -22,7 +22,7 @@ namespace ApiRest.ViewModels
         [Range(0, 100.0)]
         public decimal? Preco { get; set; }
 
-        public List<object> Links
+        public List<object> _Links
         {
             get
             {

@@ -137,9 +137,12 @@
     <Compile Include="ViewModels\AutoMapperConfig.cs" />
     <Compile Include="ViewModels\DomainToViewModelMappingProfile.cs" />
     <Compile Include="ViewModels\EnderecoViewModel.cs" />
-    <Compile Include="ViewModels\ItemDoPedidoViewModel.cs" />
-    <Compile Include="ViewModels\LoteViewModel.cs" />
-    <Compile Include="ViewModels\PedidoViewModel.cs" />
+    <Compile Include="ViewModels\ItemDoPedidoViewModelRecebimento.cs" />
+    <Compile Include="ViewModels\LoteViewModelEnvio.cs" />
+    <Compile Include="ViewModels\ItemDoPedidoViewModelEnvio.cs" />
+    <Compile Include="ViewModels\LoteViewModelRecebimento.cs" />
+    <Compile Include="ViewModels\PedidoViewModelRecebimento.cs" />
+    <Compile Include="ViewModels\PedidoViewModelEnvio.cs" />
     <Compile Include="ViewModels\PontoDeVendaViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelToDomainMappingProfile.cs" />

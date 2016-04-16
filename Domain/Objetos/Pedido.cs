@@ -15,7 +15,7 @@ namespace Domain.Objetos
         public int PontoDeVendaId { get; set; }
 
         public virtual PontoDeVenda PontoDeVenda { get; set; }
-        public virtual List<ItemDoPedido> ItensDoPedido { get; private set; }
+        public virtual List<ItemDoPedido> ItensDoPedido { get; set; }
 
         private Pedido() { }
 
@@ -26,12 +26,6 @@ namespace Domain.Objetos
             PontoDeVenda = pontoDeVenda;
             PontoDeVendaId = pontoDeVenda.Id;
             ItensDoPedido = new List<ItemDoPedido>();
-        }
-        
-        public void AdiconarItemAoPedido(ItemDoPedido item)
-        {
-            
-            ItensDoPedido.Add(item);
         }
     }
 }

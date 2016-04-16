@@ -9,9 +9,11 @@ namespace ApiRest.ViewModels
         protected override void Configure()
         {
             CreateMap<ProdutoViewModel, Produto>();
-            CreateMap<LoteViewModel, Lote>();
+            CreateMap<LoteViewModelRecebimento, Lote>();
             CreateMap<PontoDeVendaViewModel, PontoDeVenda>();
             CreateMap<EnderecoViewModel, Endereco>();
+            CreateMap<PedidoViewModelRecebimento, Pedido>();
+            CreateMap<ItemDoPedidoViewModelRecebimento, ItemDoPedido>();
 
         }
     }
