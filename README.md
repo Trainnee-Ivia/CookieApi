@@ -12,13 +12,13 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ### Produtos
 
 #### Paths
->**Lista de produtos**
->METHOD: GET, POST
->URL: [http://domain.com/api/produtos](http://domain.com/api/produtos)   
+>**Lista de produtos**  
+>METHOD: GET, POST  
+>URL: [http://domain.com/api/produtos](http://domain.com/api/produtos)     
 
->**Único produto por id**
->METHOD: GET, PUT, DEL
->URL: [http://domain.com/api/produtos/{id}](http://domain.com/api/produtos/1) 
+>**Único produto por id**  
+>METHOD: GET, PUT, DEL  
+>URL: [http://domain.com/api/produtos/{id}](http://domain.com/api/produtos/1)   
 
 #### Template - POST, PUT
 ```json
@@ -36,7 +36,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 	"nome" : "Tradicional",
     "preco" : 3.6,
     "diasValidos" : 15,
-    "_links" [
+    "_links" : [
 	    { 
 		    "rel": "self",
 		    "href": "http://domain.com/produtos/1"
