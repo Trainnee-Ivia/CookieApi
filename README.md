@@ -12,5 +12,15 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ### Produtos
 
 #### Paths
-    [/api/produtos](http://domain.com/api/produtos)
-    [/api/produtos/{id}](http://domain.com/api/produtos/1)
+Lista de produtos [/api/produtos](http://domain.com/api/produtos) metodos GET, POST  
+Unico produto por id [/api/produtos/{id}](http://domain.com/api/produtos/1) metodos GET, PUT, DEL
+
+#### Template
+#####   POST
+```
+    {
+        "nome" : "Tradicional",
+        "preco" : 3.6,
+        "diasValidos" : 15
+    }
+```
