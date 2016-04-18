@@ -17,7 +17,7 @@ Unico produto por id [/api/produtos/{id}](http://domain.com/api/produtos/1) meto
 
 #### Template
 #####   POST
-```
+```json
     {
         "nome" : "Tradicional",
         "preco" : 3.6,
