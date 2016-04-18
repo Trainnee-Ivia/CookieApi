@@ -1,9 +1,16 @@
 # CookieApi
 Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 
-# Recursos
+## Recursos
 
 + Produtos.
 + Pontos de Venda.
 + Pedidos.
-+ Lotes.
+- Lotes.
+
+
+### Produtos
+
+#### Paths
+    (http://domain.com/api/produtos/)
+    (http://domain.com/api/produtos/1)
