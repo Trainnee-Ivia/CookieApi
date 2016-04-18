@@ -92,15 +92,20 @@ namespace ApiRest.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errors });
             }
             var pedido = Mapper.Map<PedidoViewModelRecebimento, Pedido>(pedidoViewModel);
+            try
+            {
+                var servicePedido = new ServicePedido(_uow);
 
-            var servicePedido = new ServicePedido(_uow);
+                servicePedido.CompletarPedido(pedido);
+                var response = Request.CreateResponse(HttpStatusCode.Created);
+                response.Headers.Location = new Uri("/api/pedidos/"+ pedido.Id);
+                return response;
 
-            servicePedido.CompletarPedido(pedido);
-
-            var response = Request.CreateResponse(HttpStatusCode.Created);
-           
-
-            return response;
+            }
+            catch (InvalidOperationException err)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new { error = err.Message });
+            }
         }
 
         

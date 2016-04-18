@@ -63,6 +63,7 @@ namespace ApiRest.Controllers
             ((RepositoryLoteDb)_repositoryLotes).CookieDbContext.SaveChanges();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
+            response.Headers.Location = new Uri("/api/lotes/" + lote.Id);
             return response;
         }
     }

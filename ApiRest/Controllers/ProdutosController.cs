@@ -1,5 +1,4 @@
-﻿using ApiRest.App_Start;
-using ApiRest.ViewModels;
+﻿using ApiRest.ViewModels;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
@@ -65,6 +64,8 @@ namespace ApiRest.Controllers
             ((RepositoryProdutoDb)_repositoryProdutos).CookieDbContext.SaveChanges();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
+            response.Headers.Location = new Uri("/api/produtos/" + produto.Id);
+
             return response;
         }
 
