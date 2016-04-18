@@ -12,5 +12,5 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ### Produtos
 
 #### Paths
-    (http://domain.com/api/produtos/)
-    (http://domain.com/api/produtos/1)
+    [/api/produtos](http://domain.com/api/produtos)
+    [/api/produtos/{id}](http://domain.com/api/produtos/1)
