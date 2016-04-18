@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
+using Domain.Services;
 using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,8 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetByIdLote([FromUri]int id)
         {
+            if (!ServiceValidation.Exists(id, _repositoryLotes))
+                Request.CreateResponse(HttpStatusCode.NotFound);
             var lote = Mapper.Map<Lote, LoteViewModelEnvio>(_repositoryLotes.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, lote);
 
@@ -59,7 +62,7 @@ namespace ApiRest.Controllers
             _repositoryLotes.Inserir(lote);
             ((RepositoryLoteDb)_repositoryLotes).CookieDbContext.SaveChanges();
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, lote);
+            var response = Request.CreateResponse(HttpStatusCode.Created);
             return response;
         }
     }

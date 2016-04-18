@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    public static class ServiceValidation
+    public class ServiceValidation
     {
 
-        public static bool Exists(this Produto produto, IRepositoryProduto produtos)
+        public static bool Exists(int produtoId, IRepositoryProduto produtos)
         {
-            if (produtos.ObterPorId(produto.Id) != null)
+            if (produtos.ObterPorId(produtoId) != null)
                 return true;
             return false;
         }
 
-        public static bool Exists(this PontoDeVenda pontoDeVenda, IRepositoryPontoDeVenda pontosDeVenda)
+        public static bool Exists(int pontoDeVendaId, IRepositoryPontoDeVenda pontosDeVenda)
         {
-            if (pontosDeVenda.ObterPorId(pontoDeVenda.Id) != null)
+            if (pontosDeVenda.ObterPorId(pontoDeVendaId) != null)
                 return true;
             return false;
         }
 
-        public static bool Exists(this Lote lote, IRepositoryPontoDeVenda lotes)
+        public static bool Exists(int loteId, IRepositoryLote lotes)
         {
-            if (lotes.ObterPorId(lote.Id) != null)
+            if (lotes.ObterPorId(loteId) != null)
                 return true;
             return false;
         }
 
-        public static bool Exists(this Pedido pedido, IRepositoryPedido pedidos)
+        public static bool Exists(int pedidoId, IRepositoryPedido pedidos)
         {
-            if (pedidos.ObterPorId(pedido.Id) != null)
+            if (pedidos.ObterPorId(pedidoId) != null)
                 return true;
             return false;
         }

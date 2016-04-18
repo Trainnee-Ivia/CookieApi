@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
+using Domain.Services;
 using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,9 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetByIdPedido([FromUri]int id)
         {
+            if (!ServiceValidation.Exists(id, _uow.PedidoRepository))
+                Request.CreateResponse(HttpStatusCode.NotFound);
+
             var pedido = Mapper.Map<Pedido, PedidoViewModelEnvio>(_uow.PedidoRepository.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, pedido);
 
@@ -52,7 +56,10 @@ namespace ApiRest.Controllers
         {
             var itens = new List<object>();
 
-            foreach(var item in _uow.PedidoRepository.ObterPorIdComItens(id).ItensDoPedido)
+            if (!ServiceValidation.Exists(id, _uow.PedidoRepository))
+                Request.CreateResponse(HttpStatusCode.NotFound);
+
+            foreach (var item in _uow.PedidoRepository.ObterPorIdComItens(id).ItensDoPedido)
                 itens.Add(Mapper.Map<ItemDoPedido, ItemDoPedidoViewModelEnvio>(item));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, itens);
@@ -64,6 +71,9 @@ namespace ApiRest.Controllers
         [Route("{idPedido}/itens/id")]
         public HttpResponseMessage GetByIdItemDoPedido([FromUri] int idPedido, [FromUri]int id)
         {
+            if (!ServiceValidation.Exists(idPedido, _uow.PedidoRepository))
+                Request.CreateResponse(HttpStatusCode.NotFound);
+
             var item = _uow.PedidoRepository.ObterPorIdComItens(idPedido).ItensDoPedido.Find(e => e.Id == id);
             var itemView = Mapper.Map<ItemDoPedido, ItemDoPedidoViewModelEnvio>(item);
 
@@ -83,10 +93,16 @@ namespace ApiRest.Controllers
             }
             var pedido = Mapper.Map<PedidoViewModelRecebimento, Pedido>(pedidoViewModel);
 
-            
+            var servicePedido = new ServicePedido(_uow);
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, pedido);
+            servicePedido.CompletarPedido(pedido);
+
+            var response = Request.CreateResponse(HttpStatusCode.Created);
+           
+
             return response;
         }
+
+        
     }
 }

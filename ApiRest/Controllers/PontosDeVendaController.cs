@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
+using Domain.Services;
 using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
@@ -39,11 +40,14 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetByIdPontoDeVenda([FromUri]int id)
         {
+            if (!ServiceValidation.Exists(id, _repositoryPontosDeVenda))
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             var ponto = Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(_repositoryPontosDeVenda.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, ponto);
 
             return response;
         }
+
 
         [HttpPost]
         [Route("")]
@@ -59,7 +63,7 @@ namespace ApiRest.Controllers
             _repositoryPontosDeVenda.Inserir(ponto);
             ((RepositoryPontoDeVendaDb)_repositoryPontosDeVenda).CookieDbContext.SaveChanges();
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, ponto);
+            var response = Request.CreateResponse(HttpStatusCode.Created);
             return response;
         }
     }

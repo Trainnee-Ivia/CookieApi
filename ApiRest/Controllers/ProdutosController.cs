@@ -3,6 +3,7 @@ using ApiRest.ViewModels;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
+using Domain.Services;
 using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
@@ -40,11 +41,15 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetById([FromUri]int id)
         {
+            if (!ServiceValidation.Exists(id, _repositoryProdutos))
+                Request.CreateResponse(HttpStatusCode.NotFound);
+
             var produto = Mapper.Map<Produto, ProdutoViewModel>(_repositoryProdutos.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, produto);
 
             return response;
         }
+
 
         [HttpPost]
         [Route("")]
@@ -59,7 +64,7 @@ namespace ApiRest.Controllers
             _repositoryProdutos.Inserir(produto);
             ((RepositoryProdutoDb)_repositoryProdutos).CookieDbContext.SaveChanges();
 
-            var response = Request.CreateResponse(HttpStatusCode.Created, produto);
+            var response = Request.CreateResponse(HttpStatusCode.Created);
             return response;
         }
 

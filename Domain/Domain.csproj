@@ -56,9 +56,6 @@
     <Compile Include="Objetos\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServicePedido.cs" />
-    <Compile Include="Services\ServicePontoDeVenda.cs" />
-    <Compile Include="Services\ServiceProduto.cs" />
-    <Compile Include="Services\ServiceLote.cs" />
     <Compile Include="Services\ServiceValidation.cs" />
   </ItemGroup>
   <ItemGroup>
