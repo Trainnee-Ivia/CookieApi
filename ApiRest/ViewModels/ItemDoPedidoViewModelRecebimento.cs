@@ -18,7 +18,7 @@ namespace ApiRest.ViewModels
         public decimal PrecoUnitarioDoProduto { get; set; }
 
         [Required(ErrorMessage ="produtoId deve ser informado.")]
-        public int ProdutoId { private get; set; }
+        public int ProdutoId { get; set; }
         
     }
 }
