@@ -11,17 +11,17 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ## **Paths**
 
 ### Produtos
-> **URL:** */api/produtos*  
+>**URL:** */api/produtos*  
 >**Methods:** *GET, POST*
 
-> **URL:** */api/produtos{/id_produto} *  
+>**URL:** */api/produtos{/id_produto}*  
 >**Methods:** *GET, PUT, DELETE*  
 
 ### Lotes
 >**URL:** */api/lotes*  
 >**Methods:** *GET, POST*  
 
->**URL:** /api/lotes{/id_lote}  
+>**URL:** */api/lotes{/id_lote}*  
 >**Methods:** *GET, PUT, DELETE*  
 
 ### Pontos
@@ -47,7 +47,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
  
 ## **Templetes**
 
-####**Template Produto **
+#### **Template Produto **
 
 - POST, PUT
 ```json
@@ -78,7 +78,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
-#### **Template Lote **
+#### **Template Lote**
 - POST, PUT
 ```json
 {
