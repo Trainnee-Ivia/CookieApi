@@ -35,7 +35,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 >**URL:** */api/pedidos*  
 >**Methods:** *GET, POST*
 
->**URL:** */api/pedidos{/id_pedido}* 
+>**URL:** */api/pedidos{/id_pedido}*  
 >**Methods:** *GET, PUT, DELETE*
 
 >**URL:** */api/pedidos{/id_pedido}/itens*  
