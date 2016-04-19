@@ -64,7 +64,7 @@ namespace ApiRest.Controllers
             ((RepositoryPontoDeVendaDb)_repositoryPontosDeVenda).CookieDbContext.SaveChanges();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
-            response.Headers.Location = new Uri("/api/pontos/" + ponto.Id);
+            response.Headers.Location = new Uri("http://localhost:52058/api/pontos/" + ponto.Id);
 
             return response;
         }
