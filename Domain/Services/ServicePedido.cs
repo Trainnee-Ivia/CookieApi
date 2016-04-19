@@ -23,13 +23,14 @@ namespace Domain.Services
             if (pedido.ItensDoPedido.Count == 0)
                 throw new InvalidOperationException("Por favor adicione no minimo um Item ao pedido.");
 
+			pedido.ItensDoPedido.ForEach(m => m.PrecoUnitarioDoProduto = _uow.ProdutoRepository.ObterPorId(m.ProdutoId).Preco);
+
             foreach(var item in pedido.ItensDoPedido)
             {
                 RetirarItemDoEstoque(item);
             }
 
             _uow.PedidoRepository.Inserir(pedido);
-
             _uow.SalvarAlteracoes();
         }
 
