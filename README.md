@@ -45,9 +45,9 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 >**Methods:** *GET*
 
  
-## **Templetes**
+## **Samples**
 
-#### **Template Produto**
+#### **Produto**
 
 - POST, PUT
 ```json
@@ -78,7 +78,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
-#### **Template Lote**
+#### **Lote**
 - POST, PUT
 ```json
 {
@@ -116,7 +116,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
-#### **Templete Ponto de Venda**
+#### **Ponto de Venda**
 
 - POST, PUT
 ```json
@@ -159,7 +159,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 	}
 ```
 
-#### **Templete Pedido**
+#### **Pedido**
 
 - POST, PUT
 ```json
@@ -202,7 +202,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
-#### **Templete Itens do Pedido**
+#### **Itens do Pedido**
 
 - GET
 
