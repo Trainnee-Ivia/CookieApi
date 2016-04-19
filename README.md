@@ -11,37 +11,37 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ## **Paths**
 
 ### Produtos
-> **URL:** */api/produtos*
+> **URL:** */api/produtos*  
 >**Methods:** *GET, POST*
 
-> **URL:** */api/produtos{/id_produto}*
->**Methods:** *GET, PUT, DELETE*
+> **URL:** */api/produtos{/id_produto} *  
+>**Methods:** *GET, PUT, DELETE*  
 
 ### Lotes
->**URL:** */api/lotes*
->**Methods:** *GET, POST*
+>**URL:** */api/lotes*  
+>**Methods:** *GET, POST*  
 
->**URL:** /api/lotes{/id_lote}
->**Methods:** *GET, PUT, DELETE*
+>**URL:** /api/lotes{/id_lote}  
+>**Methods:** *GET, PUT, DELETE*  
 
 ### Pontos
->**URL:** */api/pontos*
+>**URL:** */api/pontos*  
 >**Methods:** *GET, POST*
 
->**URL:** */api/pontos{/id_ponto}*
->**Methods:** *GET, PUT, DELETE*
+>**URL:** */api/pontos{/id_ponto}*  
+>**Methods:** *GET, PUT, DELETE*  
 
 ### Pedidos
->**URL:** */api/pedidos*
+>**URL:** */api/pedidos*  
 >**Methods:** *GET, POST*
 
->**URL:** */api/pedidos{/id_pedido}**
+>**URL:** */api/pedidos{/id_pedido}**  
 >**Methods:** *GET, PUT, DELETE*
 
->**URL:** */api/pedidos{/id_pedido}/itens*
+>**URL:** */api/pedidos{/id_pedido}/itens*  
 >**Methods:** *GET*
 
->**URL:** */api/pedidos{/id_pedido}/itens{/id_item}*
+>**URL:** */api/pedidos{/id_pedido}/itens{/id_item}*  
 >**Methods:** *GET*
 
  
@@ -68,11 +68,11 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
     "_links" : [
 	    { 
 		    "rel": "self",
-		    "href": "http://domain.com/produtos/1"
+		    "href": "/api/produtos/1"
 		},
 		{
 			"rel": "all",
-			"href": "http://domain.com/produtos"
+			"href": "/api/produtos"
 		}
     ]
 }
@@ -127,7 +127,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 		"endereco" : {
 			"logradouro": "Conjunto Tancredo Neves, Rua da Amizade",
 			"numero": 123,
-			"complemento"? : "A",
+			"complemento?" : "A",
 			"cep" : "60820111" 
 		}
 	}
@@ -136,14 +136,14 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 - GET
 ```json
 	{
-		"id" : 1
+		"id" : 1,
 		"nome" : "Ponto 1",
 		"nomeContato" : "Michel",
 		"telefone": "85992334432",
 		"endereco" : {
 			"logradouro": "Conjunto Tancredo Neves, Rua da Amizade",
 			"numero": 123,
-			"complemento"? : "A",
+			"complemento?" : "A",
 			"cep" : "60820111" 
 		},
 		"_links" : [
@@ -159,7 +159,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 	}
 ```
 
-#### **Templete Pedido**
+#### ** Templete Pedido **
 
 - POST, PUT
 ```json
@@ -171,7 +171,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 			"quantidade" : 12,
 			"produtoId" : 1 
 		},
-		...
+		
 	]
 }
 ```
@@ -183,7 +183,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 	"dataDoPedido" : "yyyy-MM-dd",
 	"_links": [
 		{
-			"rel" : "self"
+			"rel" : "self",
 			"href" : "/api/pedidos/1"
 		},
 		{
@@ -213,7 +213,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 		"precoUnitarioDoProduto" : 3.20,
 		"_links": [
 			{
-				"rel" : "self"
+				"rel" : "self",
 				"href" : "/api/pedidos/1/itens/1"
 			},
 			{
