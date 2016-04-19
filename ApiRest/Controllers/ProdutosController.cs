@@ -64,7 +64,7 @@ namespace ApiRest.Controllers
             ((RepositoryProdutoDb)_repositoryProdutos).CookieDbContext.SaveChanges();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
-            response.Headers.Location = new Uri("/api/produtos/" + produto.Id);
+            response.Headers.Location = new Uri("http://localhost:52058/api/produtos/" + produto.Id);
 
             return response;
         }

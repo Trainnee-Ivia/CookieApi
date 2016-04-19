@@ -98,7 +98,7 @@ namespace ApiRest.Controllers
 
                 servicePedido.CompletarPedido(pedido);
                 var response = Request.CreateResponse(HttpStatusCode.Created);
-                response.Headers.Location = new Uri("/api/pedidos/"+ pedido.Id);
+                response.Headers.Location = new Uri("http://localhost:52058/api/pedidos/" + pedido.Id);
                 return response;
 
             }

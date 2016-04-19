@@ -14,6 +14,5 @@ namespace Domain.Interfaces
         void Inserir(T Entity);
         void Excluir(T Entity);
         void Excluir(int id);
-
     }
 }

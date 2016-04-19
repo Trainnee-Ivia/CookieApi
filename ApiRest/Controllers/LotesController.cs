@@ -17,11 +17,13 @@ namespace ApiRest.Controllers
     public class LotesController : ApiController
     {
         private IRepositoryLote _repositoryLotes;
+		private IRepositoryProduto _repositoryProdutos;
 
-        public LotesController(IRepositoryLote lotes)
+		public LotesController(IRepositoryLote lotes, IRepositoryProduto produtos)
         {
             _repositoryLotes = lotes;
-        }
+			_repositoryProdutos = produtos;
+		}
 
         [HttpGet]
         [Route("")]
@@ -59,11 +61,13 @@ namespace ApiRest.Controllers
             }
             var lote = Mapper.Map<LoteViewModelRecebimento, Lote>(loteViewModel);
 
+			lote.DataDeValidade = lote.DataDeFabricacao.AddDays(_repositoryProdutos.ObterPorId(lote.ProdutoId).DiasValidos);
+			
             _repositoryLotes.Inserir(lote);
             ((RepositoryLoteDb)_repositoryLotes).CookieDbContext.SaveChanges();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
-            response.Headers.Location = new Uri("/api/lotes/" + lote.Id);
+            response.Headers.Location = new Uri("http://localhost:52058/api/lotes/" + lote.Id);
             return response;
         }
     }

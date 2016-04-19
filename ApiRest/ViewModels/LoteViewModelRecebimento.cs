@@ -16,13 +16,17 @@ namespace ApiRest.ViewModels
         [Range(1, 9999,ErrorMessage = "quantidadeFabricada invalida.")]
         public int QuantidadeFabricada { get; set; }
 
-        [Required(ErrorMessage = "quantidadeEmEstoque deve ser informada.")]
-        [Range(1, 9999, ErrorMessage = "quantidadeEmEstoque invalida.")]
-        public int QuantidadeEmEstoque { get; set; }
-
         [Required(ErrorMessage = "custoUnitarioDeFabricao deve ser informado.")]
         [Range(1, 9999, ErrorMessage = "custoUnitarioDeFabricacao invalida.")]
         public decimal CustoUnitarioDeFabricacao { get; set; }
+
+		public int QuantidadeEmEstoque
+		{
+			get
+			{
+				return QuantidadeFabricada;
+			}
+		}
         
         [Required(ErrorMessage = "ProdutoId deve ser informado.")]
         public int ProdutoId { get; set; }
