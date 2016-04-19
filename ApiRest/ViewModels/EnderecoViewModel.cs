@@ -16,6 +16,6 @@ namespace ApiRest.ViewModels
         public string Complemento { get; set; }
         [Required(ErrorMessage = "Digite o CEP")]
         [MinLength(11, ErrorMessage ="CEP invalido.")]
-        public string CEP { get; set; }
+        public string Cep { get; set; }
     }
 }

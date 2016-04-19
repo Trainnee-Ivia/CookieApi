@@ -8,7 +8,7 @@ namespace ApiRest.ViewModels
 {
     public class LoteViewModelRecebimento
     {
-        public int Id { get; set; }
+        
         [Required(ErrorMessage ="dataDeFabricacao deve ser informada.")]
         public DateTime DataDeFabricacao { get; set; }
 

@@ -52,7 +52,7 @@ namespace Infrastructure.Maps
                 .HasMaxLength(60)
                 .IsOptional();
 
-            Property(pdv => pdv.Endereco.CEP)
+            Property(pdv => pdv.Endereco.Cep)
                 .HasColumnName("EnderecoCEP")
                 .HasColumnType("varchar")
                 .HasMaxLength(20)

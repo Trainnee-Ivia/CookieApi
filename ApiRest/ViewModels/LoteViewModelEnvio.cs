@@ -28,8 +28,9 @@ namespace ApiRest.ViewModels
             {
                 return new List<object>()
                 {
-                    new { rel="self", href="/lotes/" + Id},
-                    new { rel="produto", href="/produtos/" +  ProdutoId}
+                    new { rel="self", href="/api/lotes/" + Id},
+                    new { rel= "all", href="api/lotes"},
+                    new { rel="produto", href="/api/produtos/" +  ProdutoId}
                 };
             }
         }

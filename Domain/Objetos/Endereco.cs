@@ -11,7 +11,7 @@ namespace Domain.Objetos
         public string Logradouro { get; set; }
         public int Numero { get; set; }
         public string Complemento { get; set; }
-        public string CEP { get; set; }
+        public string Cep { get; set; }
         
         private Endereco() { }
 
@@ -20,7 +20,7 @@ namespace Domain.Objetos
             Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;
-            CEP = cep;
+            Cep = cep;
         }
 
     }

@@ -8,7 +8,7 @@ namespace ApiRest.ViewModels
 {
     public class PedidoViewModelRecebimento
     {
-        public int Id { get; set; }
+        
         [Required(ErrorMessage ="Data do Pedido ivalido.")]
         public DateTime DataDoPedido { get; set; }
 
