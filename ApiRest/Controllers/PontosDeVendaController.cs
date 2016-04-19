@@ -16,11 +16,11 @@ namespace ApiRest.Controllers
     [RoutePrefix("api/pontos")]
     public class PontosDeVendaController : ApiController
     {
-        private IRepositoryPontoDeVenda _repositoryPontosDeVenda;
+		private IUnitOfWork _uow;
 
-        public PontosDeVendaController(IRepositoryPontoDeVenda pontosDeVenda)
+        public PontosDeVendaController(IUnitOfWork uow)
         {
-            _repositoryPontosDeVenda = pontosDeVenda;
+            _uow = uow;
         }
 
         [HttpGet]
@@ -28,7 +28,7 @@ namespace ApiRest.Controllers
         public HttpResponseMessage GetAllPontoDeVendas()
         {
             var pontos = new List<object>();
-            foreach (var pontoDeVenda in _repositoryPontosDeVenda.ObterTodos())
+            foreach (var pontoDeVenda in _uow.PontoDeVendaRepository.ObterTodos())
                 pontos.Add(Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(pontoDeVenda));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, pontos);
@@ -40,9 +40,9 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetByIdPontoDeVenda([FromUri]int id)
         {
-            if (!ServiceValidation.Exists(id, _repositoryPontosDeVenda))
+            if (!ServiceValidation.Exists(id, _uow.PontoDeVendaRepository))
                 return Request.CreateResponse(HttpStatusCode.NotFound);
-            var ponto = Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(_repositoryPontosDeVenda.ObterPorId(id));
+            var ponto = Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(_uow.PontoDeVendaRepository.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, ponto);
 
             return response;
@@ -60,8 +60,8 @@ namespace ApiRest.Controllers
             }
             var ponto = Mapper.Map<PontoDeVendaViewModel, PontoDeVenda>(pontoDeVendaViewModel);
 
-            _repositoryPontosDeVenda.Inserir(ponto);
-            ((RepositoryPontoDeVendaDb)_repositoryPontosDeVenda).CookieDbContext.SaveChanges();
+			_uow.PontoDeVendaRepository.Inserir(ponto);
+			_uow.SalvarAlteracoes();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
             response.Headers.Location = new Uri("http://localhost:52058/api/pontos/" + ponto.Id);

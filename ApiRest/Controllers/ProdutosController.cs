@@ -16,11 +16,10 @@ namespace ApiRest.Controllers
     [RoutePrefix("api/produtos")]
     public class ProdutosController : ApiController
     {
-        private IRepositoryProduto _repositoryProdutos;
-
-        public ProdutosController(IRepositoryProduto produtos)
+		private IUnitOfWork _uow;
+		public ProdutosController(IUnitOfWork uow)
         {
-            _repositoryProdutos = produtos;
+			_uow = uow;
         }
 
         [HttpGet]
@@ -28,7 +27,7 @@ namespace ApiRest.Controllers
         public HttpResponseMessage GetAllProdutos()
         {
             var produtos = new List<object>();
-            foreach(var produto in _repositoryProdutos.ObterTodos())
+            foreach(var produto in _uow.ProdutoRepository.ObterTodos())
                 produtos.Add(Mapper.Map<Produto, ProdutoViewModel>(produto));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, produtos);
@@ -40,10 +39,10 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetById([FromUri]int id)
         {
-            if (!ServiceValidation.Exists(id, _repositoryProdutos))
+            if (!ServiceValidation.Exists(id, _uow.ProdutoRepository))
                 Request.CreateResponse(HttpStatusCode.NotFound);
 
-            var produto = Mapper.Map<Produto, ProdutoViewModel>(_repositoryProdutos.ObterPorId(id));
+            var produto = Mapper.Map<Produto, ProdutoViewModel>(_uow.ProdutoRepository.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, produto);
 
             return response;
@@ -60,8 +59,8 @@ namespace ApiRest.Controllers
             }
             var produto = Mapper.Map<ProdutoViewModel, Produto>(produtoViewModel);
 
-            _repositoryProdutos.Inserir(produto);
-            ((RepositoryProdutoDb)_repositoryProdutos).CookieDbContext.SaveChanges();
+			_uow.ProdutoRepository.Inserir(produto);
+			_uow.SalvarAlteracoes();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
             response.Headers.Location = new Uri("http://localhost:52058/api/produtos/" + produto.Id);

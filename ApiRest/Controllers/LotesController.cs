@@ -16,13 +16,11 @@ namespace ApiRest.Controllers
     [RoutePrefix("api/lotes")]
     public class LotesController : ApiController
     {
-        private IRepositoryLote _repositoryLotes;
-		private IRepositoryProduto _repositoryProdutos;
+		private IUnitOfWork _uow;
 
-		public LotesController(IRepositoryLote lotes, IRepositoryProduto produtos)
+		public LotesController(IUnitOfWork uow)
         {
-            _repositoryLotes = lotes;
-			_repositoryProdutos = produtos;
+			_uow = uow;
 		}
 
         [HttpGet]
@@ -30,7 +28,7 @@ namespace ApiRest.Controllers
         public HttpResponseMessage GetAllLotes()
         {
             var lotes = new List<object>();
-            foreach (var lote in _repositoryLotes.ObterTodos())
+            foreach (var lote in _uow.LoteRepository.ObterTodos())
                 lotes.Add(Mapper.Map<Lote, LoteViewModelEnvio>(lote));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, lotes);
@@ -42,9 +40,9 @@ namespace ApiRest.Controllers
         [Route("{id}")]
         public HttpResponseMessage GetByIdLote([FromUri]int id)
         {
-            if (!ServiceValidation.Exists(id, _repositoryLotes))
+            if (!ServiceValidation.Exists(id, _uow.LoteRepository))
                 Request.CreateResponse(HttpStatusCode.NotFound);
-            var lote = Mapper.Map<Lote, LoteViewModelEnvio>(_repositoryLotes.ObterPorId(id));
+            var lote = Mapper.Map<Lote, LoteViewModelEnvio>(_uow.LoteRepository.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, lote);
 
             return response;
@@ -61,10 +59,10 @@ namespace ApiRest.Controllers
             }
             var lote = Mapper.Map<LoteViewModelRecebimento, Lote>(loteViewModel);
 
-			lote.DataDeValidade = lote.DataDeFabricacao.AddDays(_repositoryProdutos.ObterPorId(lote.ProdutoId).DiasValidos);
+			lote.DataDeValidade = lote.DataDeFabricacao.AddDays(_uow.ProdutoRepository.ObterPorId(lote.ProdutoId).DiasValidos);
 			
-            _repositoryLotes.Inserir(lote);
-            ((RepositoryLoteDb)_repositoryLotes).CookieDbContext.SaveChanges();
+            _uow.LoteRepository.Inserir(lote);
+			_uow.SalvarAlteracoes();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
             response.Headers.Location = new Uri("http://localhost:52058/api/lotes/" + lote.Id);
