@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace ApiRest.Controllers
@@ -98,7 +99,7 @@ namespace ApiRest.Controllers
 
                 servicePedido.CompletarPedido(pedido);
                 var response = Request.CreateResponse(HttpStatusCode.Created);
-                response.Headers.Location = new Uri("http://localhost:52058/api/pedidos/" + pedido.Id);
+				response.Headers.Location = new Uri(HttpContext.Current.Request.Url.AbsoluteUri + '/' + pedido.Id);
                 return response;
 
             }

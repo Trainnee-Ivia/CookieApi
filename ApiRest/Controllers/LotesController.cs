@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace ApiRest.Controllers
@@ -65,7 +66,7 @@ namespace ApiRest.Controllers
 			_uow.SalvarAlteracoes();
 
             var response = Request.CreateResponse(HttpStatusCode.Created);
-            response.Headers.Location = new Uri("http://localhost:52058/api/lotes/" + lote.Id);
+			response.Headers.Location = new Uri(HttpContext.Current.Request.Url.AbsoluteUri + '/' + lote.Id);
             return response;
         }
     }
