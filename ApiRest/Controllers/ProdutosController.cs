@@ -41,7 +41,7 @@ namespace ApiRest.Controllers
         public HttpResponseMessage GetById([FromUri]int id)
         {
             if (!ServiceValidation.Exists(id, _uow.ProdutoRepository))
-                Request.CreateResponse(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.NotFound);
 
             var produto = Mapper.Map<Produto, ProdutoViewModel>(_uow.ProdutoRepository.ObterPorId(id));
             var response = Request.CreateResponse(HttpStatusCode.Accepted, produto);
