@@ -3,7 +3,6 @@ using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
 using Domain.Services;
-using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +24,7 @@ namespace ApiRest.Controllers
 
         [HttpGet]
         [Route("")]
+        [Authorize(Roles = "Ponto, Admin")]
         public HttpResponseMessage GetAllProdutos()
         {
             var produtos = new List<object>();
@@ -32,19 +32,21 @@ namespace ApiRest.Controllers
                 produtos.Add(Mapper.Map<Produto, ProdutoViewModel>(produto));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, produtos);
-
+           
             return response;            
         }
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(Roles = "Ponto, Admin")]
         public HttpResponseMessage GetById([FromUri]int id)
         {
-            if (!ServiceValidation.Exists(id, _uow.ProdutoRepository))
+            Produto produto = ServiceValidation.Exists(id, _uow.ProdutoRepository);
+            if (produto == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);
 
-            var produto = Mapper.Map<Produto, ProdutoViewModel>(_uow.ProdutoRepository.ObterPorId(id));
-            var response = Request.CreateResponse(HttpStatusCode.Accepted, produto);
+            var produtoView = Mapper.Map<Produto, ProdutoViewModel>(produto);
+            var response = Request.CreateResponse(HttpStatusCode.Accepted, produtoView);
 
             return response;
         }
@@ -52,6 +54,7 @@ namespace ApiRest.Controllers
 
         [HttpPost]
         [Route("")]
+        [Authorize(Roles = "Admin")]
         public HttpResponseMessage PostProduto([FromBody] ProdutoViewModel produtoViewModel)
         {
             if (!ModelState.IsValid) {

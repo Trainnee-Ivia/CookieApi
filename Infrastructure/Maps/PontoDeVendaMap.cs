@@ -58,7 +58,9 @@ namespace Infrastructure.Maps
                 .HasMaxLength(20)
                 .IsRequired();
 
-           
+            HasRequired(pdv => pdv.Usuario)
+                .WithMany()
+                .HasForeignKey(pdv => pdv.UserId);
         }
     }
 }

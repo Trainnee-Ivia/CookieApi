@@ -9,6 +9,9 @@ namespace Domain.Interfaces
 {
     public interface IRepositoryPedido: IRepository<Pedido>
     {
-        Pedido ObterPorIdComItens(int id);
+        
+
+        IEnumerable<Pedido> ObterTodosPedidosDoUsuario(string userId);
+        IEnumerable<Pedido> ObterTodosComTudo(Func<Pedido, bool> predicate);
     }
 }

@@ -1,36 +1,42 @@
 ﻿using Domain.Interfaces;
+using Domain.Objetos;
+using System.Linq;
 
 namespace Domain.Services
 {
     public class ServiceValidation
     {
 
-        public static bool Exists(int produtoId, IRepositoryProduto produtos)
+        public static Produto Exists(int produtoId, IRepositoryProduto produtos)
         {
-            if (produtos.ObterPorId(produtoId) != null)
-                return true;
-            return false;
+            Produto p = produtos.ObterPorId(produtoId);
+            if (p != null)
+                return p;
+            return null;
         }
 
-        public static bool Exists(int pontoDeVendaId, IRepositoryPontoDeVenda pontosDeVenda)
+        public static PontoDeVenda Exists(int pontoDeVendaId, string userId, IRepositoryPontoDeVenda pontosDeVenda)
         {
-            if (pontosDeVenda.ObterPorId(pontoDeVendaId) != null)
-                return true;
-            return false;
+            PontoDeVenda p = pontosDeVenda.ObterTodos(pdv => pdv.UserId == userId && pdv.Id == pontoDeVendaId).FirstOrDefault();
+            if (p != null)
+                return p;
+            return null;
         }
 
-        public static bool Exists(int loteId, IRepositoryLote lotes)
+        public static Lote Exists(int loteId, IRepositoryLote lotes)
         {
-            if (lotes.ObterPorId(loteId) != null)
-                return true;
-            return false;
+            Lote l = lotes.ObterPorId(loteId);
+            if( l != null)
+                return l;
+            return null;
         }
 
-        public static bool Exists(int pedidoId, IRepositoryPedido pedidos)
+        public static Pedido Exists(int pedidoId, string userId, IRepositoryPedido pedidos)
         {
-            if (pedidos.ObterPorId(pedidoId) != null)
-                return true;
-            return false;
+            Pedido p = pedidos.ObterTodosComTudo(pd => pd.PontoDeVenda.UserId == userId && pd.Id == pedidoId).FirstOrDefault();
+            if (p != null)
+                return p;
+            return null;
         }
 
         

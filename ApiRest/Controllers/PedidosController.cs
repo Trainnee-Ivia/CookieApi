@@ -3,7 +3,6 @@ using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
 using Domain.Services;
-using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +26,12 @@ namespace ApiRest.Controllers
 
         [HttpGet]
         [Route("")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage GetAllPedidos()
         {
             var pedidos = new List<object>();
-            foreach (var pedido in _uow.PedidoRepository.ObterTodos())
+            var userId = User.Identity.Name;
+            foreach (var pedido in _uow.PedidoRepository.ObterTodosPedidosDoUsuario(userId))
                 pedidos.Add(Mapper.Map<Pedido, PedidoViewModelEnvio>(pedido));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, pedidos);
@@ -38,15 +39,20 @@ namespace ApiRest.Controllers
             return response;
         }
 
+
+
         [HttpGet]
         [Route("{id}")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage GetByIdPedido([FromUri]int id)
         {
-            if (!ServiceValidation.Exists(id, _uow.PedidoRepository))
-                Request.CreateResponse(HttpStatusCode.NotFound);
+            var userId = User.Identity.Name;
+            Pedido pedido = ServiceValidation.Exists(id, userId, _uow.PedidoRepository);
+            if (pedido == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
 
-            var pedido = Mapper.Map<Pedido, PedidoViewModelEnvio>(_uow.PedidoRepository.ObterPorId(id));
-            var response = Request.CreateResponse(HttpStatusCode.Accepted, pedido);
+            var pedidoView = Mapper.Map<Pedido, PedidoViewModelEnvio>(pedido);
+            var response = Request.CreateResponse(HttpStatusCode.Accepted, pedidoView);
 
             return response;
         }
@@ -56,11 +62,12 @@ namespace ApiRest.Controllers
         public HttpResponseMessage GetItensDoPedido([FromUri]int id)
         {
             var itens = new List<object>();
+            var userId = User.Identity.Name;
+            Pedido pedido = ServiceValidation.Exists(id, userId, _uow.PedidoRepository);
+            if (pedido == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
 
-            if (!ServiceValidation.Exists(id, _uow.PedidoRepository))
-                Request.CreateResponse(HttpStatusCode.NotFound);
-
-            foreach (var item in _uow.PedidoRepository.ObterPorIdComItens(id).ItensDoPedido)
+            foreach (var item in pedido.ItensDoPedido)
                 itens.Add(Mapper.Map<ItemDoPedido, ItemDoPedidoViewModelEnvio>(item));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, itens);
@@ -72,10 +79,12 @@ namespace ApiRest.Controllers
         [Route("{idPedido}/itens/id")]
         public HttpResponseMessage GetByIdItemDoPedido([FromUri] int idPedido, [FromUri]int id)
         {
-            if (!ServiceValidation.Exists(idPedido, _uow.PedidoRepository))
-                Request.CreateResponse(HttpStatusCode.NotFound);
+            var userId = User.Identity.Name;
+            Pedido pedido = ServiceValidation.Exists(idPedido, userId, _uow.PedidoRepository);
+            if (pedido == null)
+                return Request.CreateResponse(HttpStatusCode.NotFound);
 
-            var item = _uow.PedidoRepository.ObterPorIdComItens(idPedido).ItensDoPedido.Find(e => e.Id == id);
+            var item = pedido.ItensDoPedido.Find(e => e.Id == id);
             var itemView = Mapper.Map<ItemDoPedido, ItemDoPedidoViewModelEnvio>(item);
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, itemView);
@@ -93,6 +102,12 @@ namespace ApiRest.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errors });
             }
             var pedido = Mapper.Map<PedidoViewModelRecebimento, Pedido>(pedidoViewModel);
+
+            var userId = User.Identity.Name;
+            PontoDeVenda ponto = ServiceValidation.Exists(pedido.PontoDeVenda.Id, userId, _uow.PontoDeVendaRepository);
+            if (ponto == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Usuário do ponto de venda invalido.");
+
             try
             {
                 var servicePedido = new ServicePedido(_uow);

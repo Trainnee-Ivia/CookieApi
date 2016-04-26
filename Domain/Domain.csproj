@@ -54,6 +54,7 @@
     <Compile Include="Objetos\Pedido.cs" />
     <Compile Include="Objetos\PontoDeVenda.cs" />
     <Compile Include="Objetos\Produto.cs" />
+    <Compile Include="Objetos\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServicePedido.cs" />
     <Compile Include="Services\ServiceValidation.cs" />

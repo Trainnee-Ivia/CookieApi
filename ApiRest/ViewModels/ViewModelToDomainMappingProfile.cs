@@ -14,6 +14,7 @@ namespace ApiRest.ViewModels
             CreateMap<EnderecoViewModel, Endereco>();
             CreateMap<PedidoViewModelRecebimento, Pedido>();
             CreateMap<ItemDoPedidoViewModelRecebimento, ItemDoPedido>();
+            CreateMap<UsuarioViewModel, Usuario>();
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using ApiRest.ViewModels;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,12 @@ namespace ApiRest
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            AutoMapperConfig.RegisterMappings();
+            
 
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            var xml = config.Formatters.XmlFormatter;
+            config.Formatters.Remove(xml);
         }
     }
 }

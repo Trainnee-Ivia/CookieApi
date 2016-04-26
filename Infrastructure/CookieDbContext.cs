@@ -13,7 +13,7 @@ namespace Infrastructure
     {
         public CookieDbContext() : base("name=CookieDbConnection")
         {
-
+           
         }
 
         public DbSet<PontoDeVenda> PontosDeVenda { get; set; }
@@ -22,6 +22,7 @@ namespace Infrastructure
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Lote> Lotes { get; set; }
         public DbSet<HistoricoDeRetiradaDoLote> HistoricoDeRetiradaDosLotes { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -33,7 +34,7 @@ namespace Infrastructure
             modelBuilder.Configurations.Add(new PontoDeVendaMap());
             modelBuilder.Configurations.Add(new LoteMap());
             modelBuilder.Configurations.Add(new HistoricoDeLoteMap());
-
+            modelBuilder.Configurations.Add(new UsuarioMap());
         }
     }
 }

@@ -3,7 +3,6 @@ using AutoMapper;
 using Domain.Interfaces;
 using Domain.Objetos;
 using Domain.Services;
-using Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +25,13 @@ namespace ApiRest.Controllers
 
         [HttpGet]
         [Route("")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage GetAllPontoDeVendas()
         {
+
             var pontos = new List<object>();
-            foreach (var pontoDeVenda in _uow.PontoDeVendaRepository.ObterTodos())
+            var idUser = User.Identity.Name;
+            foreach (var pontoDeVenda in _uow.PontoDeVendaRepository.ObterTodos(p => p.UserId == idUser))
                 pontos.Add(Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(pontoDeVenda));
 
             var response = Request.CreateResponse(HttpStatusCode.Accepted, pontos);
@@ -39,12 +41,16 @@ namespace ApiRest.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage GetByIdPontoDeVenda([FromUri]int id)
         {
-            if (!ServiceValidation.Exists(id, _uow.PontoDeVendaRepository))
+            var idUser = User.Identity.Name;
+            PontoDeVenda ponto = ServiceValidation.Exists(id, idUser, _uow.PontoDeVendaRepository);
+            if (ponto == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);
-            var ponto = Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(_uow.PontoDeVendaRepository.ObterPorId(id));
-            var response = Request.CreateResponse(HttpStatusCode.Accepted, ponto);
+            
+            var pontoView = Mapper.Map<PontoDeVenda, PontoDeVendaViewModel>(ponto);
+            var response = Request.CreateResponse(HttpStatusCode.Accepted, pontoView);
 
             return response;
         }
@@ -52,6 +58,7 @@ namespace ApiRest.Controllers
 
         [HttpPost]
         [Route("")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage PostPontoDeVenda([FromBody] PontoDeVendaViewModel pontoDeVendaViewModel)
         {
             if (!ModelState.IsValid)
@@ -60,7 +67,8 @@ namespace ApiRest.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new { Errors = errors });
             }
             var ponto = Mapper.Map<PontoDeVendaViewModel, PontoDeVenda>(pontoDeVendaViewModel);
-
+            var idUser = User.Identity.Name;
+            ponto.UserId = idUser;
 			_uow.PontoDeVendaRepository.Inserir(ponto);
 			_uow.SalvarAlteracoes();
 

@@ -14,21 +14,24 @@ namespace Domain.Objetos
         public string Nome { get; set; }
         public string NomeDoContato { get; set; }
         public Endereco Endereco { get; set; }
+        public string UserId { get; set; }
 
-        public virtual List<Pedido> Pedidos { get; set; } 
+        public virtual List<Pedido> Pedidos { get; set; }
+        public virtual Usuario Usuario { get; set; }
 
         private PontoDeVenda()
         {
             
         }
 
-        public PontoDeVenda(string telefone, string nome, string nomeDoContato, Endereco endereco)
+        public PontoDeVenda(string telefone, string nome, string nomeDoContato, Endereco endereco, Usuario usuario)
         {
             Telefone = telefone;
             Nome = nome;
             NomeDoContato = nomeDoContato;
             Endereco = endereco;
             Pedidos = new List<Pedido>();
+            Usuario = usuario;
         }
 
         

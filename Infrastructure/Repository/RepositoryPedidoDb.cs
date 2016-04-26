@@ -21,9 +21,14 @@ namespace Infrastructure.Repository
             get { return Context as CookieDbContext; }
         }
 
-        public Pedido ObterPorIdComItens(int id)
+        public IEnumerable<Pedido> ObterTodosPedidosDoUsuario(string userId)
         {
-            return CookieDbContext.Pedidos.Include("ItensDoPedido").Where(p => p.Id == id).FirstOrDefault();
+            return CookieDbContext.Pedidos.Where(p => p.PontoDeVenda.UserId == userId).ToList();
+        }
+
+        public IEnumerable<Pedido> ObterTodosComTudo(Func<Pedido, bool> predicate)
+        {
+            return CookieDbContext.Pedidos.Include("PontoDeVenda").Include("ItensDoPedido").Where(predicate).ToList();
         }
     }
 }
