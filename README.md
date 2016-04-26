@@ -7,8 +7,19 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 + Pontos de Venda.
 + Pedidos.
 - Lotes.
+- Usuários.
+- Token.
 
 ## **Paths**
+
+### Usuários
+>**URL:** */api/users*
+>**Methods:** *GET, POST*
+
+### Token
+
+>**URL:** */api/token*
+>**Methods:** *POST* 
 
 ### Produtos
 >**URL:** */api/produtos*  
@@ -47,9 +58,48 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
  
 ## **Samples**
 
-#### **Produto**
+Em alguns METHODS é obrigatório enviar no cabeçalho da request o token de acesso.
 
-- POST, PUT
+nesse formato.
+```
+	Authorization : Bearer [token]
+```
+
+#### **Usuário**
+
+- POST sem token
+```json
+{
+	"nome" : "junior",
+	"email": "ivi@gmail.com",
+	"telefone": "999999999",
+	"password": "teste12",
+	"confirmPassword": "teste12"
+}
+```
+
+- GET com token
+```json
+{
+	"nome" : "junior",
+	"email": "ivi@gmail.com",
+	"telefone": "999999999",
+	"tipoUser": "Ponto"
+}
+```
+#### **Token**
+
+- POST sem token
+```json
+{
+	"grant_type" : "password",
+	"userName": "ivi@gmail.com",
+	"password": "teste12"
+}
+```
+
+#### **Produto**
+- POST, PUT com token admin
 ```json
 {
 	"nome" : "Tradicional",
@@ -58,7 +108,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
- - GET
+ - GET com token
 ```json
 {
 	"id": 1,
@@ -79,7 +129,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ```
 
 #### **Lote**
-- POST, PUT
+- POST, PUT com token admin
 ```json
 {
 	"dataDeFabricacao" : "yyyy-MM-dd",
@@ -89,7 +139,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
-- GET
+- GET com token admin
 
 ```json
 {
@@ -118,7 +168,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 
 #### **Ponto de Venda**
 
-- POST, PUT
+- POST, PUT com token
 ```json
 	{
 		"nome" : "Ponto 1",
@@ -133,7 +183,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 	}
 ```
 
-- GET
+- GET com token
 ```json
 	{
 		"id" : 1,
@@ -161,7 +211,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 
 #### **Pedido**
 
-- POST, PUT
+- POST, PUT com token
 ```json
 {
 	"dataDoPedido" : "yyyy-MM-dd",
@@ -176,7 +226,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 }
 ```
 
-- GET
+- GET com token
 ```json
 {
 	"id" : 1,
@@ -204,7 +254,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 
 #### **Itens do Pedido**
 
-- GET
+- GET com token
 
   ```json
 	{
