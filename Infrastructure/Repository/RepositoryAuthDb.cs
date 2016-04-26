@@ -25,8 +25,8 @@ namespace Infrastructure.Repository
         {
             ApplicationUser user = new ApplicationUser
             {
-                PhoneNumber = userModel.PhoneNumber,
-                Nome = userModel.UserName,
+                PhoneNumber = userModel.Telefone,
+                Nome = userModel.Nome,
                 UserName = userModel.Email,
                 Email = userModel.Email,
                 TipoUser = "Ponto"

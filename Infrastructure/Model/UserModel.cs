@@ -9,14 +9,14 @@ namespace Infrastructure.Model
     public class UserModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string Nome { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Required]
         public string Email { get; set; }
 
         [DataType(DataType.PhoneNumber)]
-        public string PhoneNumber { get; set; }
+        public string Telefone { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "A {0} must be at least {2} characters long.", MinimumLength = 6)]

@@ -32,6 +32,10 @@ namespace Infrastructure.Maps
             Property(u => u.Nome)
                 .IsRequired();
 
+            Property(u => u.Telefone)
+                .IsRequired()
+                .HasColumnName("PhoneNumber");
+
             ToTable("Usuarios", "Adm");
         }
     }

@@ -12,6 +12,6 @@ namespace ApiRest.ViewModels
         public string Nome { get; set; }
         public string Email { get; set; }
         public string TipoUser { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Telefone { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace Domain.Objetos
 
         public virtual string SecurityStamp { get; set; }
 
-        public virtual string PhoneNumber { get; set; }
+        public virtual string Telefone { get; set; }
 
         public virtual bool PhoneNumberConfirmed { get; set; }
 

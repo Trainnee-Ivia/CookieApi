@@ -24,7 +24,7 @@ namespace ApiRest.Controllers
         }
 
         [AllowAnonymous]
-        [Route("registrar")]
+        [Route("users")]
         [HttpPost]
         public HttpResponseMessage Registrar(UserModel userModel)
         {
@@ -44,12 +44,12 @@ namespace ApiRest.Controllers
             }
             var user = _repositoryUsuario.ObterPorEmail(userModel.Email);
             var response = Request.CreateResponse(HttpStatusCode.Created);
-            response.Headers.Location = new Uri(HttpContext.Current.Request.Url.AbsoluteUri.Replace("registrar", "") + "user");
+            response.Headers.Location = new Uri(HttpContext.Current.Request.Url.AbsoluteUri);
             return response;
         }
         
         [HttpGet]
-        [Route("user")]
+        [Route("users")]
         [Authorize(Roles = "Ponto")]
         public HttpResponseMessage GetUser()
         {
