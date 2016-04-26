@@ -59,6 +59,7 @@ namespace ApiRest.Controllers
 
         [HttpGet]
         [Route("{id}/itens")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage GetItensDoPedido([FromUri]int id)
         {
             var itens = new List<object>();
@@ -76,7 +77,8 @@ namespace ApiRest.Controllers
         }
 
         [HttpGet]
-        [Route("{idPedido}/itens/id")]
+        [Route("{idPedido}/itens/{id}")]
+        [Authorize(Roles = "Admin, Ponto")]
         public HttpResponseMessage GetByIdItemDoPedido([FromUri] int idPedido, [FromUri]int id)
         {
             var userId = User.Identity.Name;
@@ -94,7 +96,8 @@ namespace ApiRest.Controllers
 
         [HttpPost]
         [Route("")]
-        public HttpResponseMessage PostProduto([FromBody] PedidoViewModelRecebimento pedidoViewModel)
+        [Authorize(Roles = "Admin, Ponto")]
+        public HttpResponseMessage PostPedido([FromBody] PedidoViewModelRecebimento pedidoViewModel)
         {
             if (!ModelState.IsValid)
             {
