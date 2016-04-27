@@ -13,7 +13,7 @@ Web API RESTful para praticar o conhecimento adquirido no Trainnee.
 ## **Paths**
 
 ### Usuários
->**URL:** */api/users*
+>**URL:** */api/contas/users*
 >**Methods:** *GET, POST*
 
 ### Token
